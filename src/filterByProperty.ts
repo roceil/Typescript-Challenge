@@ -10,12 +10,21 @@
  * @param value - 要過濾的屬性值
  * @returns - 回傳過濾後的陣列
  */
-export function filterByProperty(){
-    // 請在此處寫下你的程式碼
+
+interface FilterByPropertyProps {
+  items: {
+    name: string;
+    age: number;
+  };
+  property: "name" | "age";
+  value: string | number;
 }
 
-
-// 寫法推薦
-// export function filterByProperty<T, K extends keyof T>(array: T[], property: K, value: T[K]): T[] {
-    
-// }
+export function filterByProperty<T extends FilterByPropertyProps["items"][]>(
+  items: T,
+  property: FilterByPropertyProps["property"],
+  value: FilterByPropertyProps["value"]
+) {
+  const result = items.filter((item) => item[property] === value);
+  return result;
+}
